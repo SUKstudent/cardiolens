@@ -1,4 +1,4 @@
-# 🫀 CardioLens
+# CardioLens
 
 ### AI-Powered Cardiovascular Risk Prediction & Interactive 3D Heart Visualization
 
