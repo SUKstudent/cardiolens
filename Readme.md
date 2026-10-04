@@ -48,20 +48,6 @@ CardioLens is a web-based prototype that combines **clinical data, explainable m
 
 **Collaboration:** Git, GitHub
 
-## 🧠 ML Models
-
-| Prediction  | Model               |
-
-| ----------- | ------------------- |
-
-| Overall CAD | Logistic Regression |
-
-| LAD         | Logistic Regression |
-
-| LCX         | Random Forest       |
-
-| RCA         | Logistic Regression |
-
 ## 📁 Project Structure
 
 cardiolens/
