@@ -6,17 +6,17 @@ CardioLens is a web-based prototype that combines **clinical data, explainable m
 
 ## ✨ Features
 
-* 🧠 Overall CAD risk prediction
+* Overall CAD risk prediction
 
-* ❤️ LAD, LCX & RCA vessel-level predictions
+* LAD, LCX & RCA vessel-level predictions
 
-* 🔍 SHAP-based explainability
+* SHAP-based explainability
 
 * Interactive 3D heart visualization
 
-* 👨‍⚕️ Doctor Mode & 👤 Patient Mode
+* Doctor Mode & Patient Mode
 
-* 📊 Clinical risk dashboard
+* Clinical risk dashboard
 
 ## 🏗️ Architecture
 
