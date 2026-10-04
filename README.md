@@ -12,7 +12,7 @@ CardioLens is a web-based prototype that combines **clinical data, explainable m
 
 * 🔍 SHAP-based explainability
 
-* 🫀 Interactive 3D heart visualization
+* Interactive 3D heart visualization
 
 * 👨‍⚕️ Doctor Mode & 👤 Patient Mode
 
