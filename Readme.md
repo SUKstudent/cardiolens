@@ -22,7 +22,7 @@ CardioLens is a web-based prototype that combines **clinical data, explainable m
 
 1. React 
 
-2.Vite 
+2. Vite 
 
 3. FastAPI 
 
