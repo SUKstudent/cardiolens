@@ -21,17 +21,11 @@ CardioLens is a web-based prototype that combines **clinical data, explainable m
 ## 🏗️ Architecture
 
 React + Vite
-
      ↓
-  
-   FastAPI
-     
+  FastAPI   
      ↓
-
 ML Models + SHAP
-
      ↓
-
 Dashboard + 3D Heart
 
 ## 🛠️ Tech Stack
