@@ -1,5 +1,4 @@
-
-# CardioLens ML Package v1.0
+# CardioLens ML Package 
 
 AI-powered cardiovascular risk prediction models.
 
