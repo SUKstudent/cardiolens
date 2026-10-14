@@ -1,14 +1,7 @@
-
-import { Link } from 'react-router-dom'
-import {
-  Glass,
-  Title,
-  Btn,
-  RiskRing,
-  Meter,
-  Header,
-} from '../components/ui'
+import { Link, useNavigate } from 'react-router-dom'
+import { Glass, Title, Btn, RiskRing, Meter, Header } from '../components/ui'
 import HeartViewer from '../components/HeartViewer'
+import { usePatient } from '../context/PatientContext'
 import { PATIENT_FACTORS } from '../data/placeholder'
 
 export const Disclaimer = () => (
@@ -19,24 +12,42 @@ export const Disclaimer = () => (
 )
 
 export function PatientHome() {
+  const { result } = usePatient()
+  const navigate = useNavigate()
+  const patientName = localStorage.getItem('patientName')
+
+  if (!patientName) {
+    return (
+      <>
+        <Header title="Patient Portal" sub="Please log in to view your profile." />
+        <Glass className="text-center py-10">
+          <p className="text-sm text-slate-400 mb-4">No patient session active.</p>
+          <Btn onClick={() => navigate('/patient/login')}>Go to Login →</Btn>
+        </Glass>
+      </>
+    )
+  }
+
+  const risk = result?.overallRisk
+  const vesselVals = result
+    ? { lad: result.lad, lcx: result.lcx, rca: result.rca }
+    : null
+
   return (
     <>
-      <Header title="Your Cardiovascular Overview" />
+      <Header title={`Hello, ${patientName}`} sub="Your cardiovascular overview." />
 
       <Glass className="flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
-        <RiskRing label="Your current risk" />
-
+        <RiskRing value={risk ?? null} label="Your current risk" />
         <div>
-          <div className="text-xs text-slate-400">
-            Your current risk
-          </div>
-
+          <div className="text-xs text-slate-400">Your current risk</div>
           <div className="font-display text-4xl font-light text-white">
-            --
+            {risk != null ? `${risk}%` : '--'}
           </div>
-
           <p className="mt-3 max-w-sm text-sm text-slate-400">
-            Your result will show here once your information has been analyzed.
+            {risk != null
+              ? `Severity: ${result.severity}. Reviewed by your care team.`
+              : 'Please ask your doctor to run an analysis.'}
           </p>
         </div>
       </Glass>
@@ -45,28 +56,25 @@ export function PatientHome() {
         <Glass hover>
           <Title>What does this mean?</Title>
           <p className="text-sm text-slate-400">
-            A plain-language summary of your result will appear here.
+            {risk != null
+              ? `Your model-predicted CAD risk is ${risk}% (${result.severity.toLowerCase()}). This is not a diagnosis — please consult your doctor.`
+              : 'Results will appear once your doctor runs an analysis.'}
           </p>
         </Glass>
 
         <Glass hover>
           <Title>Main risk factors</Title>
           <div className="space-y-4">
-            {['Blood Pressure', 'Cholesterol', 'Smoking'].map((f) => (
-              <Meter key={f} label={f} />
-            ))}
+            {result?.factors?.length
+              ? result.factors.slice(0, 3).map(f => <Meter key={f.name} label={f.name} value={f.weight} />)
+              : ['Blood Pressure', 'Cholesterol', 'Smoking'].map(f => <Meter key={f} label={f} />)}
           </div>
         </Glass>
 
         <Glass hover>
           <Title>Your heart</Title>
-          <p className="mb-4 text-sm text-slate-400">
-            See your heart in an interactive 3D view.
-          </p>
-
-          <Link to="/patient/3d-visualization">
-            <Btn>3D Visualization →</Btn>
-          </Link>
+          <p className="mb-4 text-sm text-slate-400">See your heart in 3D.</p>
+          <Link to="/patient/3d-visualization"><Btn>3D Visualization →</Btn></Link>
         </Glass>
       </div>
 
@@ -75,78 +83,72 @@ export function PatientHome() {
   )
 }
 
-export const PatientRisk = () => (
-  <>
-    <Header
-      title="My Risk"
-      sub="A simple view of where you stand."
-    />
-
-    <Glass className="flex justify-center py-10">
-      <RiskRing size={260} label="Your current risk" />
-    </Glass>
-
-    <Disclaimer />
-  </>
-)
-
-export function PatientFactors() {
+export const PatientRisk = () => {
+  const { result } = usePatient()
+  const risk = result?.overallRisk
   return (
     <>
-      <Header
-        title="Risk Factors"
-        sub="What each measure means for your heart."
-      />
-
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {PATIENT_FACTORS.map((f) => (
-          <Glass hover key={f.k}>
-            <h3 className="font-display text-white">
-              {f.k}
-            </h3>
-
-            <div className="mt-3 space-y-1 text-sm text-slate-400">
-              <div>
-                Current value:{' '}
-                <span className="text-slate-200">--</span>
-              </div>
-
-              <div>
-                Status:{' '}
-                <span className="text-slate-200">--</span>
-              </div>
-            </div>
-
-            <p className="mt-4 text-sm leading-relaxed text-slate-400">
-              {f.t}
-            </p>
-          </Glass>
-        ))}
-      </div>
-
+      <Header title="My Risk" sub="A simple view of where you stand." />
+      <Glass className="flex justify-center py-10">
+        <RiskRing value={risk ?? null} size={260} label="Your current risk" />
+      </Glass>
+      {result && (
+        <Glass className="mt-5">
+          <Title>Summary</Title>
+          <p className="text-sm text-slate-300">
+            Your overall CAD risk is <strong>{risk}%</strong> ({result.severity}).
+            Vessel-wise predicted probabilities: LAD {(result.lad * 100).toFixed(1)}%,
+            LCX {(result.lcx * 100).toFixed(1)}%,
+            RCA {(result.rca * 100).toFixed(1)}%.
+          </p>
+        </Glass>
+      )}
       <Disclaimer />
     </>
   )
 }
 
-export const PatientViz = () => (
-  <>
-    <Header
-      title="Your Heart"
-      sub="Drag, zoom and explore."
-      right={
-        <Link to="/patient">
-          <Btn variant="ghost">← Back</Btn>
-        </Link>
-      }
-    />
+export function PatientFactors() {
+  const { result } = usePatient()
+  const factors = result?.factors || []
+  return (
+    <>
+      <Header title="Risk Factors" sub="What influenced your result." />
+      {factors.length > 0 ? (
+        <Glass>
+          <div className="space-y-5">
+            {factors.map(f => <Meter key={f.name} label={f.name} value={f.weight} />)}
+          </div>
+        </Glass>
+      ) : (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {PATIENT_FACTORS.map((f) => (
+            <Glass hover key={f.k}>
+              <h3 className="font-display text-white">{f.k}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-slate-400">{f.t}</p>
+            </Glass>
+          ))}
+        </div>
+      )}
+      <Disclaimer />
+    </>
+  )
+}
 
-    <HeartViewer
-      coronary={false}
-      initialZoom={1.5}
-      className="min-h-[65vh]"
-    />
+export const PatientViz = () => {
+  const { result } = usePatient()
+  const markers = result ? [
+    { id: 'lad', name: 'LAD', label: `LAD ${(result.lad * 100).toFixed(1)}%`, pos: [0.30, 0.55, 0.40], probability: result.lad },
+    { id: 'lcx', name: 'LCX', label: `LCX ${(result.lcx * 100).toFixed(1)}%`, pos: [-0.35, 0.10, 0.55], probability: result.lcx },
+    { id: 'rca', name: 'RCA', label: `RCA ${(result.rca * 100).toFixed(1)}%`, pos: [0.55, -0.25, 0.30], probability: result.rca },
+  ] : []
 
-    <Disclaimer />
-  </>
-)
+  return (
+    <>
+      <Header title="Your Heart" sub="Drag, zoom and explore."
+        right={<Link to="/patient"><Btn variant="ghost">← Back</Btn></Link>} />
+      <HeartViewer coronary={false} initialZoom={1.5} className="min-h-[65vh]" markers={markers} />
+      <Disclaimer />
+    </>
+  )
+}

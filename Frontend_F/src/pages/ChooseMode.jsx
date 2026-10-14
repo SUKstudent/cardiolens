@@ -3,7 +3,7 @@ import { Stethoscope, User, Check } from 'lucide-react'
 import { Backdrop } from '../components/Layout'
 const MODES = [
   { to: '/doctor', icon: Stethoscope, name: 'Doctor Mode', tag: 'Advanced clinical insights', cta: 'Enter Doctor Mode', items: ['Detailed patient assessment', 'Coronary artery analysis', 'Advanced risk visualization', '3D cardiac anatomy'] },
-  { to: '/patient', icon: User, name: 'Patient Mode', tag: 'Understand your cardiovascular risk', cta: 'Enter Patient Mode', items: ['Simple risk summary', 'Understandable explanations', 'Risk factors', 'Interactive heart visualization'] },
+  { to: '/patient/login', icon: User, name: 'Patient Mode', tag: 'Understand your cardiovascular risk', cta: 'Enter Patient Mode', items: ['Simple risk summary', 'Understandable explanations', 'Risk factors', 'Interactive heart visualization'] },
 ]
 export default function ChooseMode() {
   return (

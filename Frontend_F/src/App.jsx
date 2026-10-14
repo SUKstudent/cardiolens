@@ -9,6 +9,7 @@ import Twins from './pages/Twins'
 import AnatomyTour from './pages/AnatomyTour'
 import { PatientProvider } from './context/PatientContext'
 import { PatientHome, PatientRisk, PatientFactors, PatientViz } from './pages/patient'
+import PatientLogin from './pages/PatientLogin'
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
         </Route>
 
         <Route path="/patient" element={<Layout mode="patient" />}>
+          <Route path="login" element={<PatientLogin />} />
           <Route index element={<PatientHome />} />
           <Route path="my-risk" element={<PatientRisk />} />
           <Route path="risk-factors" element={<PatientFactors />} />
