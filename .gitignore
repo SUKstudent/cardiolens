@@ -1,0 +1,26 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.env
+
+# Node
+node_modules/
+dist/
+build/
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model files (large) — optional
+# backend/cardiolens_ml/models/*.joblib
+# backend/cardiolens_ml/preprocessing/*.joblib

@@ -1,0 +1,72 @@
+{
+    "project": "CardioLens",
+    "model_version": "CardioLens-ML-v1.0",
+    "dataset": {
+        "name": "UCI Extension of Z-Alizadeh Sani CAD Dataset",
+        "records": 303
+    },
+    "targets": {
+        "overall_cad": "Cath",
+        "lad": "LAD",
+        "lcx": "LCX",
+        "rca": "RCA"
+    },
+    "selected_models": {
+        "overall_cad": "Logistic Regression",
+        "lad": "Logistic Regression",
+        "lcx": "Random Forest",
+        "rca": "Logistic Regression"
+    },
+    "feature_count": 59,
+    "evaluation": {
+        "overall_cad": {
+            "accuracy": 0.8525,
+            "precision": 0.8696,
+            "recall": 0.9302,
+            "f1": 0.8989,
+            "roc_auc": 0.8889
+        },
+        "lad": {
+            "accuracy": 0.7541,
+            "precision": 0.7317,
+            "recall": 0.8824,
+            "f1": 0.8,
+            "roc_auc": 0.8224
+        },
+        "lcx": {
+            "accuracy": 0.6557,
+            "precision": 0.7273,
+            "recall": 0.3077,
+            "f1": 0.4324,
+            "roc_auc": 0.7005
+        },
+        "rca": {
+            "accuracy": 0.6885,
+            "precision": 0.5263,
+            "recall": 0.5,
+            "f1": 0.5128,
+            "roc_auc": 0.7244
+        }
+    },
+    "prediction_output": {
+        "overall_cad": "probability 0-1",
+        "lad": "probability 0-1",
+        "lcx": "probability 0-1",
+        "rca": "probability 0-1"
+    },
+    "notes": [
+        "LAD, LCX, RCA and Cath were excluded from model inputs.",
+        "Probabilities are model outputs, not actual blockage percentages.",
+        "3D visualization represents vessel-level prediction on reference anatomy.",
+        "SHAP values represent model contribution, not causation.",
+        "This is an educational/decision-support prototype, not a clinical diagnosis."
+    ],
+    "environment": {
+        "python": "3.13.15",
+        "scikit_learn": "1.6.1",
+        "pandas": "2.2.3",
+        "numpy": "2.1.3",
+        "shap": "0.52.0",
+        "joblib": "1.6.0"
+    }
+}
