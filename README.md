@@ -61,8 +61,6 @@ CardioLens/
 
   ├── ml/                # Model training and evaluation
 
-  ├── visualization/     # 3D heart visualization
-
 └── README.md
 
 Only retain folders that exist in your actual repository.
