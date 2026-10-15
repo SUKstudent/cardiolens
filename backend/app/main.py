@@ -17,7 +17,7 @@ app.add_middleware(
         "http://localhost:3000",  # CRA / generic
         "http://127.0.0.1:5173",
         "http://127.0.0.1:3000",
-        "https://cardiolens-gamma.vercel.app/",
+        "https://cardiolens-gamma.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
