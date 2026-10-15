@@ -132,19 +132,29 @@ export async function predictRisk(formData) {
   }
 }
 
-export async function checkHealth() {
-  const url = `${BASE}/health`
+export async function predictRisk(formData) {
+  const payload = formToBackend(formData)
+  const url = `${BASE}/predict`
 
-  try {
-    const res = await fetch(url)
+  console.log('CardioLens API URL:', url)
+  console.log('CardioLens API payload:', payload)
 
-    if (!res.ok) {
-      throw new Error(`Health check failed (${res.status})`)
-    }
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
 
-    return await res.json()
-  } catch (error) {
-    console.error('CardioLens health check error:', error)
-    throw error
+  const body = await res.text()
+
+  console.log('CardioLens API status:', res.status)
+  console.log('CardioLens API response:', body)
+
+  if (!res.ok) {
+    throw new Error(`Prediction failed (${res.status}): ${body}`)
   }
+
+  return JSON.parse(body)
 }
