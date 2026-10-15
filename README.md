@@ -4,7 +4,7 @@
 
 CardioLens is a cardiac intelligence project that brings together machine learning, cardiac data analysis, and interactive 3D heart visualization. It aims to make cardiac information easier to explore and understand through a clear interface and data-driven insights.
 
-> **Project status:** Prototype in development. Some components may run independently while end-to-end integration is being strengthened. This project is for educational and research purposes and is not a substitute for professional medical advice, diagnosis, or treatment.
+> **Project status:** Completed. This project is for educational and research purposes and is not a substitute for professional medical advice, diagnosis, or treatment.
 
 ## Overview
 
