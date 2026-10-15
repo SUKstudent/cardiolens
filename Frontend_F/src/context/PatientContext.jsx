@@ -64,7 +64,12 @@ export function PatientProvider({ children }) {
       setRun({ data, warnings: warningsOf(found), inputs: values })
       setStatus('done')
       return data
-    } catch { setStatus('offline'); return null }
+    }  
+  catch (error) {
+  console.error('Analyze Risk failed:', error)
+  setStatus('offline')
+  return null
+}
   }, [])
 
   // One click: fill the form with a demo profile and run the real prediction.
