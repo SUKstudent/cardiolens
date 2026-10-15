@@ -59,11 +59,9 @@ CardioLens/
 
 ├── backend/           # API and application logic
 
-├── ml/                # Model training and evaluation
+  ├── ml/                # Model training and evaluation
 
-├── visualization/     # 3D heart visualization
-
-├── assets/            # Images and other static assets
+  ├── visualization/     # 3D heart visualization
 
 └── README.md
 
