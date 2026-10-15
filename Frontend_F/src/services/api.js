@@ -1,4 +1,6 @@
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const BASE = (
+  import.meta.env.VITE_API_URL || 'http://localhost:8000'
+).replace(/\/+$/, '')
 
 const DEFAULT_PROFILE = {
   Age: 55, Weight: 70, Length: 165, Sex: 'Male', BMI: 25.7,
